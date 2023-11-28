@@ -15,7 +15,7 @@ RUN apt-get update \
 
 # Installeer PHP Extentions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mysqli pdo pdo_mysql
+    && docker-php-ext-install gd
 
 # Installeer Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
