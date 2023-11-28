@@ -1,6 +1,6 @@
 # BarCode-QrCode-Generator
 
-Met dit project is het mogelijk eenvoudig een QR code of een Barcode (code39) te genereren.
+Met dit project is het mogelijk eenvoudig een QR code of een Barcode (code39) te genereren. De binaire data wordt teruggestuurd, inclusief bijbehorende http headers.
 
 ## Gebruik
 ```
@@ -15,7 +15,8 @@ http://localhost:8000/?type=qr&value=qrContent
 docker run -p 8000:80 -d --restart=always renkosteenbeek/barcode-qrcode:latest
 ```
 
-De binaire data wordt teruggestuurd, inclusief bijbehorende http headers.
+Zie ook:
+https://hub.docker.com/repository/docker/renkosteenbeek/barcode-qrcode
 
 ## Ontwikkelen
 ### Projectstructuur
@@ -25,12 +26,22 @@ De binaire data wordt teruggestuurd, inclusief bijbehorende http headers.
 - `composer.json` en `composer.lock`: Configuratiebestanden voor Composer-afhankelijkheden.
 - `Dockerfile`: Definieert de Docker-container voor het project.
 
-### Build image
+### Build and push image (multi arch)
 ```
-docker buildx build --platform linux/amd64,linux/arm64 -t renkosteenbeek/barcode-qrcode:latest
+docker build --platform linux/amd64,linux/arm64 -t renkosteenbeek/barcode-qrcode:latest --push
+```
+
+### Build image (single arch)
+```
+docker build -t barcode-qrcode .
 ```
 ### Script aanpassingen
-Na het builden, voer het volgende commando uit vanuit de project directory.
+Installeer in je lokale directory the Composer packages:
+```
+docker run --rm -v $(pwd):/app composer install
+```
+
+Start de image:
 ```
 docker run -p 8000:80 -v $(pwd):/var/www/html barcode-qrcode
 ````
