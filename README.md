@@ -27,12 +27,12 @@ https://hub.docker.com/repository/docker/renkosteenbeek/barcode-qrcode
 - `Dockerfile`: Definieert de Docker-container voor het project.
 
 ### Build and push image (multi arch)
-Eenmalig:
+Buildx instance maken en gebruiken:
 ```
 docker buildx create --name mybuilder --use;
 docker buildx inspect --bootstrap
-
 ```
+Builden:
 ```
 docker build --platform linux/amd64,linux/arm64 -t renkosteenbeek/barcode-qrcode:latest . --push
 ```
